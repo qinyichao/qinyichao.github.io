@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-24T14:05:43.921Z</updated>
+  <updated>2016-12-24T14:14:15.488Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,48 @@
     <link href="http://yoursite.com/2016/12/24/Servlet%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89-0/"/>
     <id>http://yoursite.com/2016/12/24/Servlet学习笔记（1）-0/</id>
     <published>2016-12-24T14:05:43.000Z</published>
-    <updated>2016-12-24T14:05:43.921Z</updated>
+    <updated>2016-12-24T14:14:15.488Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="servlet学习笔记（1）"><a href="#servlet学习笔记（1）" class="headerlink" title="servlet学习笔记（1）"></a>servlet学习笔记（1）</h1><hr>
+<ul>
+<li>学习背景<br>本人要打算做java web方向，servlet是web开发的基础，也是必须要掌握的知识点。</li>
+<li>在哪里学<br>天码营-[Servlet和JSP开发入门教程][1]上学习</li>
+<li>学习内容<br> 1.TCP/IP协议</li>
+</ul>
+<blockquote>
+<p>IP地址：用户电脑IP和用户访问的服务器IP地址。<br>TCP协议：当用户电脑知道服务器的IP地址后，接下来就是如何与之通信。TCP协议正是解决数据传输层的通信协议。<br>端口：当客户端发起的TCP连接地址是216.58.199.100:80时（IP:Port形式的地址）</p>
+</blockquote>
+<pre><code>2.开发环境配置
+</code></pre><blockquote>
+<p>配置tomcat，部署项目等等</p>
+</blockquote>
+<pre><code>3.什么是servlet
+</code></pre><blockquote>
+<p>servlet技术是用来创建web应用程序的，servlet是运行在服务端的Java程序。能接受客户端发起的http请求并动态地生成动态页面。常用的场景：<br>1.处理从浏览器页面中提交的http请求<br>2.根据http请求信息，动态生成http响应内容<br>3.使用cookie或URL重写技术在无状态的HTTP协议之上实现对客户端状态管理。</p>
+</blockquote>
+<pre><code>4.第一个servlet代码[^code]
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"></div><div class="line"><span class="meta">@WebServlet</span>(<span class="string">"/HelloWorld"</span>)<span class="comment">//注解表明左右请求路径是/HelloWorld（例如http://localhost:8080/HelloWorld）时，才会执行该Servlet生成返回内容</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;<span class="comment">//在程序实现的角度，一个servlet是继承了javax.servlet.HttpServlet</span></div><div class="line"></div><div class="line">    <span class="comment">//HttpServletRequest HTTP请求内容</span></div><div class="line">    <span class="comment">//HttpServletResponse HTTP响应内容 </span></div><div class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line">			<span class="keyword">throws</span> ServletException, IOException &#123;</div><div class="line">		response.setCharacterEncoding(<span class="string">"utf-8"</span>);</div><div class="line">		<span class="comment">//通过HttpServletResponse有四种处理响应方式</span></div><div class="line">		response.getWriter().append(<span class="string">"hello 天码营!"</span>);<span class="comment">//直接返回HTML内容</span></div><div class="line"><span class="comment">//		response.getOutputStream().write(null);//直接返回二进制下载文</span></div><div class="line"><span class="comment">//		response.sendRedirect("/index.jsp");//重定向到另一个URL</span></div><div class="line"><span class="comment">//		response.sendError(404,"Resource Not Found");//返回错误信息</span></div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>5.Servlet与Servlet容器
+</code></pre><blockquote>
+<p>Servlet容器装载和管理Servlet（包括Servlet创建·执行·销毁 并发请求的多线程处理、线程池管理 Session管理，HTTP缓存等）</p>
+</blockquote>
+<pre><code>6.Servlet处理机制
+</code></pre><blockquote>
+<p>Servlet容器监听某网络端口，接受并读取客户端指定URL发送过来的HTTP请求后，将其分配到指定接受URL的Servlet进行处理。有二个参数对象<code>HttpServletRequest</code>和HttpServlResponse进行响应封装，在请求处理，在响应处理。</p>
+</blockquote>
+<pre><code>7.Servlet生命周期
+</code></pre><blockquote>
+<p>Servlet依托于Servlet容器运行，它包含三个方法，他们分别在特定的时机被Servlet容器所调用：<br><code>init()</code>,当Servlet第一次被容器加载进入内存后调用，一般用于载入一些特定的资源和配置<br><code>service()</code>,一旦有对应URL的HTTP请求访问即被调用，它会根据HTTP请求中的method信息将请求分发至相应的方法进行处理（<code>doGet()``doPost()</code>）<code>service()</code>方法一般不需要开发者重写。<br><code>destroy()</code>,Servlet被销毁时调用，一般用来释放.清理资源。</p>
+</blockquote>
+<pre><code>8.利用Servlet技术最做简单的表单处理---上代码
+</code></pre><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/account/login"</span> <span class="attr">method</span>=<span class="string">"get"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>First name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"fanme"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>Last name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"lanme"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Submit"</span>&gt;</span>submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.he.bean.Blog;</div><div class="line"></div><div class="line"><span class="meta">@WebServlet</span>(<span class="string">"/account/login"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></div><div class="line">			<span class="keyword">throws</span> ServletException, IOException &#123;</div><div class="line">		String fanme = request.getParameter(<span class="string">"fanme"</span>);</div><div class="line">		String lname = request.getParameter(<span class="string">"lanme"</span>);</div><div class="line">		Blog blog = <span class="keyword">new</span> Blog(fanme, lname);</div><div class="line">		response.setCharacterEncoding(<span class="string">"utf-8"</span>);</div><div class="line">		response.getWriter().append(<span class="string">"&lt;html&gt;"</span>)</div><div class="line">		.append(<span class="string">"&lt;boby&gt;"</span>)</div><div class="line">		.append(String.format(<span class="string">"&lt;h2&gt;%s&lt;/h2&gt;"</span>, blog.getTitle()))</div><div class="line">		.append(String.format(<span class="string">"&lt;p&gt;%s&lt;/p&gt;"</span>, blog.getContent()))</div><div class="line">		.append(<span class="string">"&lt;/boby&gt;"</span>)</div><div class="line">		.append(<span class="string">"&lt;/html&gt;"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
+    
+      &lt;h1 id=&quot;servlet学习笔记（1）&quot;&gt;&lt;a href=&quot;#servlet学习笔记（1）&quot; class=&quot;headerlink&quot; title=&quot;servlet学习笔记（1）&quot;&gt;&lt;/a&gt;servlet学习笔记（1）&lt;/h1&gt;&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;学习背景&lt;br&gt;本人要
     
     </summary>
     
