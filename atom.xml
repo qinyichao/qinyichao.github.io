@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-24T14:14:15.488Z</updated>
+  <updated>2016-12-29T18:15:14.529Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java中的final关键字在变量.方法.类的使用特点</title>
+    <link href="http://yoursite.com/2016/12/30/Java%E4%B8%AD%E7%9A%84final%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8%E5%8F%98%E9%87%8F-%E6%96%B9%E6%B3%95-%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8%E7%89%B9%E7%82%B9/"/>
+    <id>http://yoursite.com/2016/12/30/Java中的final关键字在变量-方法-类的使用特点/</id>
+    <published>2016-12-29T18:14:06.000Z</published>
+    <updated>2016-12-29T18:15:14.529Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Java中的final关键字在变量-方法-类的使用特点"><a href="#Java中的final关键字在变量-方法-类的使用特点" class="headerlink" title="Java中的final关键字在变量.方法.类的使用特点"></a>Java中的final关键字在变量.方法.类的使用特点</h1><hr>
+<p>Java中的final关键字非常重要，含义存在着细微的区别，通常指“这是无法改变的”，不想改变可能出于两种理由：设计和效率。注意是可能，下面说一下我学习使用到final的三种情况：final变量.final方法和fianl类。</p>
+<h3 id="1-fianl变量"><a href="#1-fianl变量" class="headerlink" title="1. fianl变量"></a>1. fianl变量</h3><hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//先举例2个例子：</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TIANMAYING_HE = <span class="string">"haha"</span>;<span class="comment">//变量是基本数据类型的，</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;Objec&gt; lists = <span class="keyword">new</span> ArrayList&lt;Objec&gt;();<span class="comment">//变量是对象数据类型</span></div></pre></td></tr></table></figure>
+<p>变量是基本数据类型比较好理解，就是一个永远不改变的编译时常量，或者一个在运行时被初始化的永不改变的值。fianl变量经常和static关键词在一起使用，命名时一般用大写不是表示，并使用下划线隔开单词。<br>如果变量是对象数据类型我们需要注意了：final使用的引用是永不改变的。一旦引用被初始化指向一个对象，就无法在把它改为指向另一个对象。然而对象自身却是可以被修改的。<br>还有一种情况是空白final：java允许生成“空白final”所谓空白final就是<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TIANMAYING_CHAO;<span class="comment">//空白final</span></div></pre></td></tr></table></figure></p>
+<p>在使用情况中，编译器都要确保空白final在使用前被初始化。就是这样空白final在final关键字的使用提供了很好的灵活性。可以根据不同的情况而有所不同，却又保持了fianl关键字永不改变的特点。</p>
+<h3 id="2-fianl方法"><a href="#2-fianl方法" class="headerlink" title="2.fianl方法"></a>2.fianl方法</h3><p>使用fianl方法一个主要的特点，把方法锁定，以防任何继承类修改它的含义。方法不可以被子类的方法重写。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TianmayingJava</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Tianmaying Java"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TianmayingCoding</span> <span class="keyword">extends</span> <span class="title">TianmayingJava</span></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Tianmaying Coding"</span>; <span class="comment">//compilation error: overridden method is final</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="3-fianl类"><a href="#3-fianl类" class="headerlink" title="3. fianl类"></a>3. fianl类</h3><p>使用final来修饰的类叫作final类。final类通常功能是完整的，它们不能被继承。Java中有许多类是final的，譬如String, Interger以及其他包装类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">TianmayingJava</span></span>&#123;</div><div class="line"> </div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TianmayingCoding</span> <span class="keyword">extends</span> <span class="title">TianmayingJava</span></span>&#123;  <span class="comment">//compilation error: cannot inherit from final </span></div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Java中的final关键字在变量-方法-类的使用特点&quot;&gt;&lt;a href=&quot;#Java中的final关键字在变量-方法-类的使用特点&quot; class=&quot;headerlink&quot; title=&quot;Java中的final关键字在变量.方法.类的使用特点&quot;&gt;&lt;/a&gt;Java中
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Servlet学习笔记（1）</title>
